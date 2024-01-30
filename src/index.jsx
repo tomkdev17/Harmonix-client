@@ -1,17 +1,13 @@
 import { createRoot } from 'react-dom/client';
-
+import { MainView } from './components/main-view/main-view';
 import "./index.scss";
 
-const harmonixApplication = () => {
-    return(
-        <div className = "harmonix">
-            <div>Example Text</div>
-        </div>
-    );
+const HarmonixApplication = () => {
+        return <MainView/>;
 };
 
 const container = document.querySelector("#root");
 const root = createRoot(container);
 
-root.render(<harmonixApplication/>);
+root.render(< HarmonixApplication />);
 
