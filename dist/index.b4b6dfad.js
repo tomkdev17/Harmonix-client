@@ -27182,19 +27182,19 @@ const MainView = ()=>{
             id: 1,
             title: "Cure",
             artist: "Moonchild",
-            image: ""
+            image: "https://f4.bcbits.com/img/a1715825296_10.jpg"
         },
         {
             id: 2,
             title: "Roots Bloody Roots",
             artist: "Sepultura",
-            image: ""
+            image: "https://upload.wikimedia.org/wikipedia/en/c/cf/Sepultura_-_Roots.jpg"
         },
         {
             id: 3,
             title: "Cough Syrup",
             artist: "Young the Giant",
-            image: ""
+            image: "https://i.scdn.co/image/ab67616d0000b273e0e1939607a3854a59433f5f"
         }
     ]);
     const [selectedSong, setSelectedSong] = (0, _react.useState)(null);
@@ -27230,7 +27230,7 @@ const MainView = ()=>{
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "tI4MXiWpOZ+jrc9huohpUdeOqvQ=");
+_s(MainView, "GzpTP3K/XZkIGYKe3YJA21BPaSQ=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
