@@ -8,8 +8,8 @@ export const MainView = () => {
     const [selectedSong, setSelectedSong] = useState(null);
 
     useEffect(() => {
-        // fetch("https://harmonix-daebd0a88259.herokuapp.com/songs")
-        fetch("http://localhost:8080/songs")
+        fetch("https://harmonix-daebd0a88259.herokuapp.com/songs")
+        // fetch("http://localhost:8080/songs")
         .then((response) => response.json())
         .then((data) => {
             console.log("Data from API: ", data);
