@@ -1,14 +1,24 @@
 import {useState, useEffect} from "react"; 
 import { SongCard } from "../song-card/song-card";
 import { SongView } from "../song-view/song-view";
+import { LoginView } from '../login-view/login-view';
 
 export const MainView = () => {
 
     const [songs, setSongs] = useState([]);
     const [selectedSong, setSelectedSong] = useState(null);
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
-        fetch("https://harmonix-daebd0a88259.herokuapp.com/songs")
+
+        if(!token){
+            return;
+        }
+
+        fetch("https://harmonix-daebd0a88259.herokuapp.com/songs", {
+            headers: {Authorization: `Bearer ${token}`}
+        })
         // fetch("http://localhost:8080/songs")
         .then((response) => response.json())
         .then((data) => {
@@ -32,8 +42,19 @@ export const MainView = () => {
         .catch((err) => {
             console.error("Error fetching songs data: " + err);
         });
-    }, []);
+    }, [token]);
 
+    if(!user) {    
+        return(
+            <LoginView 
+                onLoggedIn={(user, token) => {
+                    setUser(user);
+                    setToken(token);
+                }} 
+            />
+        ); 
+    }
+    
     if(selectedSong) {
         return(
             <SongView 
