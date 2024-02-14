@@ -27180,8 +27180,8 @@ const MainView = ()=>{
     const [songs, setSongs] = (0, _react.useState)([]);
     const [selectedSong, setSelectedSong] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
-        // fetch("https://harmonix-daebd0a88259.herokuapp.com/songs")
-        fetch("http://localhost:8080/songs").then((response)=>response.json()).then((data)=>{
+        fetch("https://harmonix-daebd0a88259.herokuapp.com/songs")// fetch("http://localhost:8080/songs")
+        .then((response)=>response.json()).then((data)=>{
             console.log("Data from API: ", data);
             if (data) {
                 const songFromAPI = data.map((songs)=>{
