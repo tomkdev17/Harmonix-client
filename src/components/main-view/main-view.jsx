@@ -1,14 +1,17 @@
 import {useState, useEffect} from "react"; 
 import { SongCard } from "../song-card/song-card";
 import { SongView } from "../song-view/song-view";
-import { LoginView } from '../login-view/login-view';
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
 
     const [songs, setSongs] = useState([]);
     const [selectedSong, setSelectedSong] = useState(null);
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
+    const [user, setUser] = useState(storedUser? storedUser: null);
+    const [token, setToken] = useState(storedToken? storedToken: null);
 
     useEffect(() => {
 
@@ -46,13 +49,17 @@ export const MainView = () => {
 
     if(!user) {    
         return(
-            <LoginView 
-                onLoggedIn={(user, token) => {
-                    setUser(user);
-                    setToken(token);
-                }} 
-            />
-        ); 
+            <div>
+                <LoginView 
+                    onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                    }} 
+                />
+                <h3>Or Create an Account: </h3>
+                <SignupView/>
+            </div>
+        );
     }
     
     if(selectedSong) {
@@ -67,8 +74,9 @@ export const MainView = () => {
     if(songs.length === 0) {
         return <div>The list is empty!</div>;
     }
+
     return(
-        <div>
+        <>
             {songs.map((song) => (
                 <SongCard
                     key = {song.id}
@@ -78,6 +86,7 @@ export const MainView = () => {
                     }}
                 />
             ))}
-        </div>
+            <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+        </>
     );
 };

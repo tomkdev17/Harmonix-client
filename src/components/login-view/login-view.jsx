@@ -10,14 +10,14 @@ export const LoginView = ({onLoggedIn}) => {
         event.preventDefault();
 
         const data = {
-            access: username,
-            secret: password
+            Username: username,
+            Password: password
         };
 
         fetch("https://harmonix-daebd0a88259.herokuapp.com/login", {
             method: "POST",
             headers: {
-                "Content-Type":"aplication/json"
+                "Content-Type":"application/json"
             },
             body: JSON.stringify(data)
         })
@@ -25,6 +25,8 @@ export const LoginView = ({onLoggedIn}) => {
             .then((data) => {
                 console.log("Login Response: ", data);
                 if(data.user){
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                    localStorage.setItem("token", data.token);
                     onLoggedIn(data.user, data.token);
                 }else {
                     alert("Login Failed: no such user");
