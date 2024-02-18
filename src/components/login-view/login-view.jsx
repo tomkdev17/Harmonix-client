@@ -26,8 +26,7 @@ export const LoginView = ({onLoggedIn}) => {
                 console.log("Login Response: ", data);
                 if(data.user){
                     localStorage.setItem("user", JSON.stringify(data.user));
-                    localStorage.setItem("token", data.token);
-                    onLoggedIn(data.user, data.token);
+                    onLoggedIn(data.user);
                 }else {
                     alert("Login Failed: no such user");
                 }

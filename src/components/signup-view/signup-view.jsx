@@ -8,6 +8,9 @@ export const SignupView = () => {
     const [birthday, setBirthday] = useState('');
 
     const handleSubmit = (event) => {
+
+        event.preventDefault();
+        
         const data = {    
             Username: username, 
             Password: password, 
@@ -18,9 +21,11 @@ export const SignupView = () => {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-                "Content-type": "json/application"
+                "Content-type": "application/json"
             }
         }).then((response) => {
+            console.log(response);
+
             if(response.ok) {
                 alert("Signup Successful!");
                 window.location.reload();

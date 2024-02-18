@@ -9,18 +9,18 @@ export const MainView = () => {
     const [songs, setSongs] = useState([]);
     const [selectedSong, setSelectedSong] = useState(null);
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    const storedToken = localStorage.getItem("token");
     const [user, setUser] = useState(storedUser? storedUser: null);
-    const [token, setToken] = useState(storedToken? storedToken: null);
 
     useEffect(() => {
 
-        if(!token){
+        if(!user){
             return;
         }
 
+        console.log(user);
+
         fetch("https://harmonix-daebd0a88259.herokuapp.com/songs", {
-            headers: {Authorization: `Bearer ${token}`}
+            headers: {Authorization: `Bearer ${user}`}
         })
         // fetch("http://localhost:8080/songs")
         .then((response) => response.json())
@@ -45,15 +45,15 @@ export const MainView = () => {
         .catch((err) => {
             console.error("Error fetching songs data: " + err);
         });
-    }, [token]);
+    }, [user]);
 
     if(!user) {    
         return(
             <div>
+                <h3>Welcome to Harmonix! Please login: </h3>
                 <LoginView 
-                    onLoggedIn={(user, token) => {
+                    onLoggedIn={(user) => {
                         setUser(user);
-                        setToken(token);
                     }} 
                 />
                 <h3>Or Create an Account: </h3>
@@ -72,7 +72,12 @@ export const MainView = () => {
     }
 
     if(songs.length === 0) {
-        return <div>The list is empty!</div>;
+        return(
+            <>
+            <div>The list is empty!</div>
+            <button onClick={() => { setUser(null); localStorage.clear(); }}>Logout</button>
+            </>
+        )
     }
 
     return(
@@ -86,7 +91,7 @@ export const MainView = () => {
                     }}
                 />
             ))}
-            <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+            <button onClick={() => { setUser(null); localStorage.clear(); }}>Logout</button>
         </>
     );
 };
