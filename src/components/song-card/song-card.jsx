@@ -1,14 +1,25 @@
 import { PropTypes } from "prop-types";
+import {Button, Card} from "react-bootstrap";
 
 export const SongCard = ({songData, onSongClick}) => {
     return (
-        <div
-            onClick ={() => {
-                onSongClick(songData);
-            }}
-        >
-            {songData.title}
-        </div>
+        <Card>
+            <Card.Img variant="top" src={songData.image} />
+            <Card.Body>
+                <Card.Title>{songData.title}</Card.Title>
+                <Card.Text>{songData.artist.Name}</Card.Text>
+                <Button onClick ={() => onSongClick(songData)}>
+                    Browse
+                </Button>
+            </Card.Body>
+        </Card>
+        // <div
+        //     onClick ={() => {
+        //         onSongClick(songData);
+        //     }}
+        // >
+        //     {songData.title}
+        // </div>
     );
 };
 

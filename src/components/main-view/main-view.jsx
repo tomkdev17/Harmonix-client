@@ -3,6 +3,8 @@ import { SongCard } from "../song-card/song-card";
 import { SongView } from "../song-view/song-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export const MainView = () => {
 
@@ -81,17 +83,36 @@ export const MainView = () => {
     }
 
     return(
-        <>
-            {songs.map((song) => (
-                <SongCard
-                    key = {song.id}
-                    songData = {song}
-                    onSongClick = {(newSelectedSong) => {
-                        setSelectedSong(newSelectedSong);
+        <Row>
+            { !user ? (
+                <>
+                    <LoginView onLoggedIn={(user) => {
+                        setUser(user);
                     }}
-                />
-            ))}
-            <button onClick={() => { setUser(null); localStorage.clear(); }}>Logout</button>
-        </>
+                    />
+                    <SignupView /> 
+                </>
+            ) : selectedSong ? (
+                <SongView
+                    songData={selectedSong}
+                    onBackClick = {() => setSelectedSong(null)}
+                />  
+            ) : songs.length === 0 ? (
+                <div>The list is empty! :( </div>
+            ) : (
+            <>
+                {songs.map((song) => (
+                    <SongCard
+                        key = {song.id}
+                        songData = {song}
+                        onSongClick = {(newSelectedSong) => {
+                            setSelectedSong(newSelectedSong);
+                        }}
+                    />
+                ))}
+                <button onClick={() => { setUser(null); localStorage.clear(); }}>Logout</button>
+            </>
+            )}
+        </Row>
     );
 };

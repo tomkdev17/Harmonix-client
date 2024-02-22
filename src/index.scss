@@ -1,5 +1,10 @@
 $color: steel-blue;
 
-.harmonix {
-    color: $color;
-}
+    @import '~bootstrap/scss/bootstrap.scss';
+
+    .harmonix {
+        color: $color;
+    }
+    body {
+        background-color: aqua;
+    }
