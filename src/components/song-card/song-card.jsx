@@ -3,7 +3,7 @@ import {Button, Card} from "react-bootstrap";
 
 export const SongCard = ({songData, onSongClick}) => {
     return (
-        <Card>
+        <Card className="h-100 border border-4">
             <Card.Img variant="top" src={songData.image} />
             <Card.Body>
                 <Card.Title>{songData.title}</Card.Title>
@@ -13,13 +13,6 @@ export const SongCard = ({songData, onSongClick}) => {
                 </Button>
             </Card.Body>
         </Card>
-        // <div
-        //     onClick ={() => {
-        //         onSongClick(songData);
-        //     }}
-        // >
-        //     {songData.title}
-        // </div>
     );
 };
 

@@ -5,6 +5,7 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 export const MainView = () => {
 
@@ -49,68 +50,39 @@ export const MainView = () => {
         });
     }, [user]);
 
-    if(!user) {    
-        return(
-            <div>
-                <h3>Welcome to Harmonix! Please login: </h3>
-                <LoginView 
-                    onLoggedIn={(user) => {
-                        setUser(user);
-                    }} 
-                />
-                <h3>Or Create an Account: </h3>
-                <SignupView/>
-            </div>
-        );
-    }
-    
-    if(selectedSong) {
-        return(
-            <SongView 
-                songData = {selectedSong}
-                onBackClick = {() => setSelectedSong(null)}
-            />
-        );
-    }
-
-    if(songs.length === 0) {
-        return(
-            <>
-            <div>The list is empty!</div>
-            <button onClick={() => { setUser(null); localStorage.clear(); }}>Logout</button>
-            </>
-        )
-    }
-
     return(
-        <Row>
+        <Row className="justify-content-md-center">
             { !user ? (
-                <>
+                <Col md={5}>
                     <LoginView onLoggedIn={(user) => {
                         setUser(user);
                     }}
                     />
                     <SignupView /> 
-                </>
+                </Col>
             ) : selectedSong ? (
-                <SongView
-                    songData={selectedSong}
-                    onBackClick = {() => setSelectedSong(null)}
-                />  
+                <Col md={8}>
+                    <SongView
+                        songData={selectedSong}
+                        onBackClick = {() => setSelectedSong(null)}
+                    />
+                </Col>
+                  
             ) : songs.length === 0 ? (
                 <div>The list is empty! :( </div>
             ) : (
             <>
                 {songs.map((song) => (
-                    <SongCard
-                        key = {song.id}
-                        songData = {song}
-                        onSongClick = {(newSelectedSong) => {
-                            setSelectedSong(newSelectedSong);
-                        }}
-                    />
+                    <Col className="mb-5" key={song.id} md={3} >
+                        <SongCard
+                            songData = {song}
+                            onSongClick = {(newSelectedSong) => {
+                                setSelectedSong(newSelectedSong);
+                            }}
+                        />
+                    </Col>
                 ))}
-                <button onClick={() => { setUser(null); localStorage.clear(); }}>Logout</button>
+                <Button  variant="primary" className="w-75" onClick={() => { setUser(null); localStorage.clear(); }}>Logout</Button>
             </>
             )}
         </Row>

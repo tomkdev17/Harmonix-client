@@ -1,10 +1,6 @@
-$color: steel-blue;
+$primary: #6b9080;
+$body-bg: #eaf4f4;
 
     @import '~bootstrap/scss/bootstrap.scss';
 
-    .harmonix {
-        color: $color;
-    }
-    body {
-        background-color: aqua;
-    }
+
