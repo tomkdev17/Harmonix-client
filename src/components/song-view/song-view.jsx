@@ -1,29 +1,38 @@
 import { PropTypes } from "prop-types";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
+import { useParams } from "react-router"; 
+import { Link } from "react-router-dom";
 
-export const SongView = ({songData, onBackClick}) => {
+export const SongView = ({songData}) => {
+
+    const { songId } = useParams();
+
+    const song = songData.find((s) => s.id === songId);
+
     return (
         <>
-            <img className="w-100" src={songData.image} alt={songData.title}/>
+            <img className="w-100" src={song.image} alt={song.title}/>
             <div>
-                <h1>{songData.title}</h1>
+                <h1>{song.title}</h1>
             </div>
             <Accordion defaultActiveKey={['0']} alwaysOpen flush>
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>Artist : {songData.artist.Name}</Accordion.Header>
+                    <Accordion.Header>Artist : {song.artist.Name}</Accordion.Header>
                     <Accordion.Body>
-                        {songData.artist.Bio}
+                        {song.artist.Bio}
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Genre : {songData.genre.Name}</Accordion.Header>
+                    <Accordion.Header>Genre : {song.genre.Name}</Accordion.Header>
                     <Accordion.Body>
-                        {songData.genre.Description}
+                        {song.genre.Description}
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-                <Button onClick={onBackClick}>Back</Button>
+            <Link to={'/'} > 
+                <Button className="back-button"> Back </Button>
+            </Link>
         </>
     )
 }
