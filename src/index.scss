@@ -1,5 +1,6 @@
-$color: steel-blue;
+$primary: #6b9080;
+$body-bg: #eaf4f4;
 
-.harmonix {
-    color: $color;
-}
+    @import '~bootstrap/scss/bootstrap.scss';
+
+
