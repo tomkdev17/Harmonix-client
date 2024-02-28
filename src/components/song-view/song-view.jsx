@@ -4,11 +4,11 @@ import Accordion from "react-bootstrap/Accordion";
 import { useParams } from "react-router"; 
 import { Link } from "react-router-dom";
 
-export const SongView = ({songData}) => {
+export const SongView = ({songs}) => {
 
     const { songId } = useParams();
 
-    const song = songData.find((s) => s.id === songId);
+    const song = songs.find((s) => s.id === songId);
 
     return (
         <>

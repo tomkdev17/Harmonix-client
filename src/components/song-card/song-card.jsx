@@ -2,14 +2,14 @@ import { PropTypes } from "prop-types";
 import {Button, Card} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const SongCard = ({songData}) => {
+export const SongCard = ({song}) => {
     return (
         <Card className="h-100 border border-4">
-            <Card.Img variant="top" src={songData.image} />
+            <Card.Img variant="top" src={song.image} />
             <Card.Body>
-                <Card.Title>{songData.title}</Card.Title>
-                <Card.Text>{songData.artist.Name}</Card.Text>
-                <Link to={`/songs/${encodeURIComponent(songData.id)}`} >
+                <Card.Title>{song.title}</Card.Title>
+                <Card.Text>{song.artist.Name}</Card.Text>
+                <Link to={`/songs/${encodeURIComponent(song.id)}`} >
                     <Button variant="link">Read More</Button>
                 </Link>
             </Card.Body>
