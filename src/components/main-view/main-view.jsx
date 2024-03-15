@@ -4,6 +4,7 @@ import { SongView } from "../song-view/song-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from '../profile-view/profile-view';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -89,6 +90,21 @@ export const MainView = () => {
                             </>
                         }
                     />
+                    <Route 
+                        path='/profile'
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to='/login' replace />
+                                ) : (
+                                    <ProfileView 
+                                        user={user}
+                                        onLoggedOut={() => setUser(null)}
+                                    />
+                                )}
+                            </>
+                        }
+                    />
                     <Route  
                         path="/songs/:songId"
                         element={
@@ -99,7 +115,10 @@ export const MainView = () => {
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <Col md={8} > 
-                                        <SongView songs={songs} />
+                                        <SongView 
+                                            user={user} 
+                                            songs={songs}   
+                                        />
                                     </Col>
                                 )}
                             </>
