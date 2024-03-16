@@ -1,49 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { SongCard } from "../song-card/song-card";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-export const ProfileView = ({user, onLoggedOut}) => {
+export const ProfileView = ({user, userData, Username, songs, onLoggedOut}) => {
     
-    const [userData, setUserData] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [birthday, setBirthday] = useState('');
-    console.log(user);
-    const decodedToken = jwtDecode(user);
-    const Username = decodedToken.Username;
-    console.log(Username);
+    const [favorites, setFavorites] = useState([]);
     const url = `https://harmonix-daebd0a88259.herokuapp.com/users/${Username}`;
-    
+    console.log({songs});
+
+    // useEffect(() => {
+
+    //     if(!userData || !userData.Favorites) {
+    //         return;
+    //     }
+    //     const fetchFavorites = async () => {
+    //         const songsPromises = userData.Favorites.map(songId =>
+    //             fetch(`https://harmonix-daebd0a88259.herokuapp.com/songs/${songId}`, {
+    //                 headers: {Authorization: `Bearer ${user}`}
+    //             })
+    //             .then(response => response.json())
+    //             .catch(err => console.error(`Error fetching favorite id= ${songId}`, err))
+    //         );
+
+    //         const favoritesData = await Promise.all(songsPromises);
+    //         setFavorites(favoritesData.filter(song => !!song));
+    //         console.log('Fetched songs data: ', favoritesData);
+    //     };
+    //     fetchFavorites();
+    // }, [userData]);
     useEffect(() => {
-        
-        if(!user){
-            setIsLoading(false);
-            return;
+        const hashFavorites = () => {
+            if(!userData || !userData.Favorites || !songs) {
+                return;
+            }
+            const favoritesData = userData.Favorites.map(songId => {
+                return songs.find(s => s.id === songId);
+            });
+            setFavorites(favoritesData.filter(song => !!song));
+            console.log('Fetched songs data: ', favoritesData);
         };
 
-        fetch(url, {
-            headers: {Authorization: `Bearer ${user}`}
-        })
-        .then((response) => response.json())
-        .then((data) => {
-
-            if(data) {
-                console.log("User data from API: ", data);
-                setUserData(data);        
-                setIsLoading(false);
-            } else {
-                console.error("Error: No user data received from the API");
-                setIsLoading(false);
-            }
-        })
-        .catch((err) => {
-            console.error("Error fetching user data: " + err);
-        });
-    }, [user]);
-
+        hashFavorites();
+    }, [userData, songs]);
+    
     const handleUpdate = (event) => {
 
         event.preventDefault();
@@ -95,78 +101,80 @@ export const ProfileView = ({user, onLoggedOut}) => {
             console.error("Error deregistering account" + err);
         });
     };
-    
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
 
     return(
         <>
             {userData && (
-                <div>
-                    <h3>User Profile:</h3> 
-                        <p>Username: {userData.Username}</p>
+                <Row>
+                    <h1>{Username}'s Profile:</h1> 
                         <p>Email: {userData.Email}</p>
-                        <p>Birthday: {userData.Birthday}</p>
-                        <p>Favorites: {userData.Favorites}</p>
-                </div>
+                        <p>Birthday: {userData.Birthday}</p>                
+                            <p>Favorites:</p>
+                        {favorites.map(song => (
+                            <Col className='mb-4' key='favorites.id' md={3}>
+                                <SongCard song={song} />
+                            </Col>
+                        ))}
+                </Row>
             )}
-            <div>
-                <h3>Update User Info:</h3>
-                <Form onSubmit={handleUpdate} >
-                    <Form.Group controlId="formUsername">
-                        <Form.Label>Username: </Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                    </Form.Group>
+                <div>
+                    <h3>Update User Info:</h3>
+                    <Form onSubmit={handleUpdate} >
+                        <Form.Group controlId="formUsername">
+                            <Form.Label>Username: </Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                        </Form.Group>
 
-                    <Form.Group controlId="formPassword">
-                        <Form.Label>Password: </Form.Label>
-                        <Form.Control
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </Form.Group>
+                        <Form.Group controlId="formPassword">
+                            <Form.Label>Password: </Form.Label>
+                            <Form.Control
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </Form.Group>
 
-                    <Form.Group controlId="formEmail">
-                        <Form.Label>Email: </Form.Label>
-                        <Form.Control
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </Form.Group>
+                        <Form.Group controlId="formEmail">
+                            <Form.Label>Email: </Form.Label>
+                            <Form.Control
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </Form.Group>
 
-                    <Form.Group controlId="formBirthday">
-                        <Form.Label>Birthday: </Form.Label>
-                        <Form.Control
-                            type="date"
-                            value={birthday}
-                            onChange={(e) => setBirthday(e.target.value)}
-                            required
-                        /> 
-                    </Form.Group>
+                        <Form.Group controlId="formBirthday">
+                            <Form.Label>Birthday: </Form.Label>
+                            <Form.Control
+                                type="date"
+                                value={birthday}
+                                onChange={(e) => setBirthday(e.target.value)}
+                                required
+                            /> 
+                        </Form.Group>
 
-                    <Button variant="primary" className="btn-sm" type="submit">
-                        Update my info
-                    </Button>
-                </Form> 
-            </div>
-            <div>
-                <h4>Deregister My Account</h4>
-                    <p>Warning: This button cannot be unpressed, your account and all of its information will be removed from the Harmonix database</p>
-                    <Button variant="danger" onClick={handleDeregister} >Deregister</Button>
-            </div>
+                        <Button variant="primary" className="btn-sm" type="submit">
+                            Update my info
+                        </Button>
+                    </Form> 
+                </div>
+                <div>
+                    <h4>Deregister My Account</h4>
+                        <p>Warning: This button cannot be unpressed, your account and all of its information will be removed from the Harmonix database</p>
+                        <Button variant="danger" onClick={handleDeregister} >Deregister</Button>
+                </div>
         </>
     );
 };
+        
+            
 
 // export const ProfileView = ({user}) => {
 //   const [userData, setUserData] = useState(null);

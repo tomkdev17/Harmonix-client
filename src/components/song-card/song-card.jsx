@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 export const SongCard = ({song}) => {
     return (
         <Card className="h-100 border border-4">
-            <Card.Img variant="top" src={song.image} />
+            <Link to={`/songs/${encodeURIComponent(song.id)}`} >
+                <Card.Img variant="top" src={song.image} />
+            </Link>
             <Card.Body>
                 <Card.Title>{song.title}</Card.Title>
                 <Card.Text>{song.artist.Name}</Card.Text>
                 <Link to={`/songs/${encodeURIComponent(song.id)}`} >
-                    <Button variant="link">Read More</Button>
+                    <Button variant="link">Info</Button>
                 </Link>
             </Card.Body>
         </Card>

@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react"; 
+import { jwtDecode } from 'jwt-decode';
 import { SongCard } from "../song-card/song-card";
 import { SongView } from "../song-view/song-view";
 import { LoginView } from "../login-view/login-view";
@@ -15,24 +16,57 @@ export const MainView = () => {
     const [songs, setSongs] = useState([]);
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const [user, setUser] = useState(storedUser? storedUser: null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [userData, setUserData] = useState(null);
+    let Username;
+    if(user) {
+        const decodedToken = jwtDecode(user);
+        Username = decodedToken.Username;
+    }
+    const handleLogout = () => {
+        setUser(null);
+        localStorage.clear();
+    }
+    const songsUrl = "https://harmonix-daebd0a88259.herokuapp.com/songs";
+    const userUrl = `https://harmonix-daebd0a88259.herokuapp.com/users/${Username}`;
 
     useEffect(() => {
 
-        if(!user){
-            return;
-        }
-
         console.log(user);
 
-        fetch("https://harmonix-daebd0a88259.herokuapp.com/songs", {
+        if(!user){
+            setIsLoading(false);
+            return;
+        };
+
+        fetch(userUrl, {
+            headers: {Authorization: `Bearer ${user}`}
+        })
+        .then((response) => response.json())
+        .then((userData) => {
+
+            if(userData) {
+                console.log("User data from API: ", userData);
+                setUserData(userData);        
+                setIsLoading(false);
+            } else {
+                console.error("Error: No user data received from the API");
+                setIsLoading(false);
+            }
+        })
+        .catch((err) => {
+            console.error("Error fetching user data: " + err);
+        });
+
+        fetch(songsUrl, {
             headers: {Authorization: `Bearer ${user}`}
         })
         // fetch("http://localhost:8080/songs")
         .then((response) => response.json())
-        .then((data) => {
-            console.log("Data from API: ", data);
-            if(data) {
-                const songFromAPI = data.map((songs) => {
+        .then((songsData) => {
+            console.log("Data from API: ", songsData);
+            if(songsData) {
+                const songFromAPI = songsData.map((songs) => {
                     return {
                         id: songs._id, 
                         title: songs.Title,
@@ -52,12 +86,16 @@ export const MainView = () => {
         });
     }, [user]);
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    };
+
     return(
         <BrowserRouter>
             
             <NavigationBar 
                 user={user}
-                onLoggedOut={() => setUser(null)}
+                onLoggedOut={handleLogout}
             />
 
             <Row className="justify-content-md-center">
@@ -83,7 +121,7 @@ export const MainView = () => {
                                 {user ? (
                                     <Navigate to="/" />
                                 ) : (
-                                    <Col md={5}>
+                                    <Col lg={5}>
                                         <LoginView onLoggedIn={(user) => {setUser(user); }} />
                                     </Col>
                                 )}
@@ -99,7 +137,10 @@ export const MainView = () => {
                                 ) : (
                                     <ProfileView 
                                         user={user}
-                                        onLoggedOut={() => setUser(null)}
+                                        userData={userData}
+                                        Username={Username}
+                                        songs={songs}
+                                        onLoggedOut={handleLogout}
                                     />
                                 )}
                             </>
@@ -117,6 +158,7 @@ export const MainView = () => {
                                     <Col md={8} > 
                                         <SongView 
                                             user={user} 
+                                            userData={userData}
                                             songs={songs}   
                                         />
                                     </Col>
