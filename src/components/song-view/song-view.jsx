@@ -91,7 +91,7 @@ export const SongView = ({ user, userData, songs}) => {
                 </Button>
                 
             </div>
-            <Accordion defaultActiveKey={['0']} alwaysOpen flush>
+            <Accordion defaultActiveKey={['0']} alwaysOpen flush className='mt-3 mb-3'>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>Artist : {song.artist.Name}</Accordion.Header>
                     <Accordion.Body>
@@ -105,8 +105,8 @@ export const SongView = ({ user, userData, songs}) => {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            <Link to={'/'} > 
-                <Button className="back-button"> Back </Button>
+            <Link to={'/'} className='d-grid gap-2'> 
+                <Button className="back-button mb-5" size='lg' fluid> Back </Button>
             </Link>
         </>
     )

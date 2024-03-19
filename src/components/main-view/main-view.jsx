@@ -177,7 +177,7 @@ export const MainView = () => {
                                 ) : (
                                     <> 
                                         {songs.map((song) => (
-                                            <Col className="mb-4" key={song.id} md={3} > 
+                                            <Col className="mb-4" key={song.id} xs={12} sm={6} md={4} lg={3} > 
                                                 <SongCard song={song} /> 
                                             </Col> 
                                         ))}
