@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 
-export const SongView = ({ user, userData, songs}) => {
+export const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, updateHigherLevelFav}) => {
 
     const { songId } = useParams();
     const song = songs.find((s) => s.id === songId);
@@ -22,8 +22,12 @@ export const SongView = ({ user, userData, songs}) => {
         }
         
         const existingFavorite = userData.Favorites.includes(songId);
-
         setIsFavorite(existingFavorite);
+
+
+        const updatedHigherLevelFav = existingFavorite ? [...higherLevelFav, songId] : higherLevelFav.filter(id => id !== songId);
+        setHigherLevelFav(updatedHigherLevelFav);
+        console.log('the current state of higherLevelFav is: ', higherLevelFav);
 
     }, [userData]);
 
@@ -42,6 +46,8 @@ export const SongView = ({ user, userData, songs}) => {
             if(response.ok) {
                 alert(`${song.title} has been added to your favorites list!`);
                 setIsFavorite(true);
+                setHigherLevelFav(`${songId}`);
+                updateHigherLevelFav(`${songId}`);
             } else {
                 alert(`${song.title} could not be added to your favorites list :( `);
             }
@@ -63,6 +69,9 @@ export const SongView = ({ user, userData, songs}) => {
             if(response.ok) {
                 alert(`${song.title} has been removed from your favorites list!`);
                 setIsFavorite(false);
+                const updatedFav = higherLevelFav.filter(song => song.id !== `${songId}`);
+                setHigherLevelFav(updatedFav);
+                console.log(higherLevelFav);
             } else {
                 alert(`${song.title} could not be removed from your favorites list :( `);
             }
@@ -71,11 +80,17 @@ export const SongView = ({ user, userData, songs}) => {
 
     const handleFavoriteToggle = () => {
         if(isFavorite) {
+            // && higherLevelFav.some(song => song.id === `${songId}`)  this is how we'd handle it without isFavorite....? 
             removeFavorite();
+            console.log(higherLevelFav);
         }
-        if(!isFavorite) {
+        else {
             addFavorite();
+            console.log(higherLevelFav);
         }
+        // if(!isFavorite && higherLevelFav) {
+        //     addFavorite();
+        // }
     };
 
     return (

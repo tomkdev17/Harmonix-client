@@ -19,20 +19,18 @@ export const MainView = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState(null);
     let Username;
-    if(user) {
+    if(user && typeof user === 'string') {
         const decodedToken = jwtDecode(user);
         Username = decodedToken.Username;
     }
     const handleLogout = () => {
         setUser(null);
         localStorage.clear();
-    }
+    };
     const songsUrl = "https://harmonix-daebd0a88259.herokuapp.com/songs";
     const userUrl = `https://harmonix-daebd0a88259.herokuapp.com/users/${Username}`;
 
     useEffect(() => {
-
-        console.log(user);
 
         if(!user){
             setIsLoading(false);
@@ -46,8 +44,7 @@ export const MainView = () => {
         .then((userData) => {
 
             if(userData) {
-                console.log("User data from API: ", userData);
-                setUserData(userData);        
+                setUserData(userData);
                 setIsLoading(false);
             } else {
                 console.error("Error: No user data received from the API");
@@ -64,7 +61,7 @@ export const MainView = () => {
         // fetch("http://localhost:8080/songs")
         .then((response) => response.json())
         .then((songsData) => {
-            console.log("Data from API: ", songsData);
+
             if(songsData) {
                 const songFromAPI = songsData.map((songs) => {
                     return {
@@ -85,6 +82,8 @@ export const MainView = () => {
             console.error("Error fetching songs data: " + err);
         });
     }, [user]);
+
+
 
     if (isLoading) {
         return <div>Loading...</div>;

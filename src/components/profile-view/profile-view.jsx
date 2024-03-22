@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UserInfo } from "./user-info";
 import {Container, Row, Col, Card} from 'react-bootstrap';
 import { FavoriteSongs } from './favorite-songs';
 import { UpdateUser } from './update-user';
 import { DeleteAccount } from './delete-account';
 
-export const ProfileView = ({user, userData, Username, songs, onLoggedOut}) => {
+export const ProfileView = ({user, userData, Username, songs, onLoggedOut, higherLevelFav, setHigherLevelFav}) => {
     
     const url = `https://harmonix-daebd0a88259.herokuapp.com/users/${Username}`;
-    console.log({songs});
+
+    useEffect(() => {
+        if (userData && userData.Favorites) {
+            userData.Favorites.map(songId => {
+                return songs.find(s => s.id === songId);
+            });
+        }
+    })
 
     const handleDeregister = () => {
 
@@ -50,7 +57,12 @@ export const ProfileView = ({user, userData, Username, songs, onLoggedOut}) => {
             </Row>
             <Row>
                 <Col className='mb-5'>
-                    <FavoriteSongs userData={userData} songs={songs}/>
+                    <FavoriteSongs
+                         userData={userData} 
+                         songs={songs} 
+                         higherLevelFav={higherLevelFav}
+                         setHigherLevelFav={setHigherLevelFav}
+                    />
                 </Col>
             </Row>
             <Row>

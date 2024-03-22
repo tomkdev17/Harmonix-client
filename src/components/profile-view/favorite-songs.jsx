@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SongCard } from '../song-card/song-card';
 import { Container, Row, Col } from 'react-bootstrap';
 
-export const FavoriteSongs = ({ userData, songs}) => {
+export const FavoriteSongs = ({ userData, songs, higherLevelFav, setHigherLevelFav }) => {
 
     const [favorites, setFavorites] = useState([]);
 
@@ -11,11 +11,16 @@ export const FavoriteSongs = ({ userData, songs}) => {
             if(!userData || !userData.Favorites || !songs) {
                 return;
             }
-            const favoritesData = userData.Favorites.map(songId => {
+
+            const favoritesData = higherLevelFav.map(songId => {
                 return songs.find(s => s.id === songId);
             });
-            setFavorites(favoritesData.filter(song => !!song));
+            const filteredFavs = favoritesData.filter(song => !!song);
+
+            setFavorites(filteredFavs);
             console.log('Fetched songs data: ', favoritesData);
+            console.log('Favorites: ', favorites);
+            console.log('New Favorites state : ', higherLevelFav);
         };
 
         hashFavorites();
@@ -28,12 +33,12 @@ export const FavoriteSongs = ({ userData, songs}) => {
                     <h3>Favorites:</h3>
                 </Col>
             </Row>
-            <Row>    
+            <Row>   
                 {favorites.map(song => (
                     <Col xs={12} sm={6} md={4} lg={3} key='favorites.id'>
                         <SongCard song={song} />
                     </Col>
-            ))}
+                ))}
             </Row>
         </Container>
     );

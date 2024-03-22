@@ -5,7 +5,7 @@ import "./index.scss";
 
 const HarmonixApplication = () => {
         return(
-            <Container fluid="sm" >
+            <Container fluid="xs" >
                     <MainView />
             </Container>
         );
