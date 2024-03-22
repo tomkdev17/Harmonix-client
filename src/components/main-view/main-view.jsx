@@ -18,11 +18,16 @@ export const MainView = () => {
     const [user, setUser] = useState(storedUser? storedUser: null);
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState(null);
+    const [higherLevelFav, setHigherLevelFav] = useState([]);
+    // const [isFavorite, setIsFavorite] = useState(false);
     let Username;
     if(user && typeof user === 'string') {
         const decodedToken = jwtDecode(user);
         Username = decodedToken.Username;
-    }
+    };
+    const updateHigherLevelFav = (updatedFav) => {
+        setHigherLevelFav(updatedFav);
+    };
     const handleLogout = () => {
         setUser(null);
         localStorage.clear();
@@ -45,6 +50,7 @@ export const MainView = () => {
 
             if(userData) {
                 setUserData(userData);
+                setHigherLevelFav(userData.Favorites || [] );        
                 setIsLoading(false);
             } else {
                 console.error("Error: No user data received from the API");
@@ -140,6 +146,8 @@ export const MainView = () => {
                                         Username={Username}
                                         songs={songs}
                                         onLoggedOut={handleLogout}
+                                        higherLevelFav={higherLevelFav}
+                                        setHigherLevelFav={setHigherLevelFav}
                                     />
                                 )}
                             </>
@@ -159,6 +167,9 @@ export const MainView = () => {
                                             user={user} 
                                             userData={userData}
                                             songs={songs}   
+                                            higherLevelFav={higherLevelFav}
+                                            setHigherLevelFav={setHigherLevelFav}
+                                            updateHigherLevelFav={updateHigherLevelFav}
                                         />
                                     </Col>
                                 )}
