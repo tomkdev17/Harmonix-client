@@ -1,29 +1,131 @@
+import { useState, useEffect } from 'react';
 import { PropTypes } from "prop-types";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
+import { useParams } from "react-router"; 
+import { Link } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
 
-export const SongView = ({songData, onBackClick}) => {
+export const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, updateHigherLevelFav}) => {
+
+    const { songId } = useParams();
+    const song = songs.find((s) => s.id === songId);
+    const decodedToken = jwtDecode(user);
+    const Username = decodedToken.Username;
+    const url = `https://harmonix-daebd0a88259.herokuapp.com/users/${Username}/songs/${songId}`;
+    const [isFavorite, setIsFavorite] = useState(false);
+    
+    useEffect(() => {
+        
+        if(!userData){
+            return;
+        }
+        
+        const existingFavorite = userData.Favorites.includes(songId);
+        if (existingFavorite) {
+            setIsFavorite(true);
+        }
+        // setIsFavorite(existingFavorite);
+
+        
+        // const updatedHigherLevelFav = existingFavorite ? [...higherLevelFav, songId] : higherLevelFav.filter(id => id !== songId);
+        // setHigherLevelFav(updatedHigherLevelFav);
+        console.log('the current state of higherLevelFav is: ', higherLevelFav);
+        console.log('component rerendered');
+        
+
+    }, [userData, higherLevelFav, isFavorite]);
+
+    const addFavorite = (event) => {
+    
+        // event.preventDefault();
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${user}`
+            }
+        }).then((response) => {
+            console.log(response);
+            if(response.ok) {
+                alert(`${song.title} has been added to your favorites list!`);
+                setIsFavorite(true);
+                setHigherLevelFav(prevFav => [...prevFav, `${songId}`]);
+                // updateHigherLevelFav(`${songId}`);
+            } else {
+                alert(`${song.title} could not be added to your favorites list :( `);
+            }
+        });
+    };
+
+    const removeFavorite = (event) => {
+        
+        // event.preventDefault();
+
+        fetch(url, {
+            method: "DELETE", 
+            headers: {
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${user}`
+            }
+        }).then((response) => {
+            console.log(response);
+            if(response.ok) {
+                alert(`${song.title} has been removed from your favorites list!`);
+                setIsFavorite(false);
+                // const updatedFav = higherLevelFav.filter(song => song.id !== `${songId}`);
+                // console.log('updatedFav: ', updatedFav);
+                setHigherLevelFav(favorite => favorite.filter(song => song.id !== songId));
+            } else {
+                alert(`${song.title} could not be removed from your favorites list :( `);
+            }
+        });
+    };
+
+    const handleFavoriteToggle = () => {
+        console.log('handleFavoriteToggle called');
+        if(isFavorite) {
+            // && higherLevelFav.some(song => song.id === `${songId}`)
+            removeFavorite();
+            console.log(higherLevelFav);
+        }
+        else {
+            addFavorite();
+            console.log(higherLevelFav);
+        }
+    };
+
     return (
         <>
-            <img className="w-100" src={songData.image} alt={songData.title}/>
+            <img className="w-100" src={song.image} alt={song.title}/>
             <div>
-                <h1>{songData.title}</h1>
+                <h1>{song.title}</h1>
+                <Button 
+                variant={isFavorite ? 'outline-primary' : 'primary'}
+                onClick={handleFavoriteToggle} 
+                >
+                    {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                </Button>
+                
             </div>
-            <Accordion defaultActiveKey={['0']} alwaysOpen flush>
+            <Accordion defaultActiveKey={['0']} alwaysOpen flush className='mt-3 mb-3'>
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>Artist : {songData.artist.Name}</Accordion.Header>
+                    <Accordion.Header>Artist : {song.artist.Name}</Accordion.Header>
                     <Accordion.Body>
-                        {songData.artist.Bio}
+                        {song.artist.Bio}
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Genre : {songData.genre.Name}</Accordion.Header>
+                    <Accordion.Header>Genre : {song.genre.Name}</Accordion.Header>
                     <Accordion.Body>
-                        {songData.genre.Description}
+                        {song.genre.Description}
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-                <Button onClick={onBackClick}>Back</Button>
+            <Link to={'/'} className='d-grid gap-2'> 
+                <Button className="back-button mb-5" size='lg' fluid> Back </Button>
+            </Link>
         </>
     )
 }
