@@ -7,6 +7,8 @@ export const FavoriteSongs = ({ userData, songs, higherLevelFav, setHigherLevelF
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
+
+        console.log('the state of higherLevelFav in FavoriteSongs is: ', higherLevelFav)
         const hashFavorites = () => {
             if(!userData || !userData.Favorites || !songs) {
                 return;

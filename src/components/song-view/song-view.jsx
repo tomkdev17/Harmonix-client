@@ -22,14 +22,19 @@ export const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevel
         }
         
         const existingFavorite = userData.Favorites.includes(songId);
-        setIsFavorite(existingFavorite);
+        if (existingFavorite) {
+            setIsFavorite(true);
+        }
+        // setIsFavorite(existingFavorite);
 
-
-        const updatedHigherLevelFav = existingFavorite ? [...higherLevelFav, songId] : higherLevelFav.filter(id => id !== songId);
-        setHigherLevelFav(updatedHigherLevelFav);
+        
+        // const updatedHigherLevelFav = existingFavorite ? [...higherLevelFav, songId] : higherLevelFav.filter(id => id !== songId);
+        // setHigherLevelFav(updatedHigherLevelFav);
         console.log('the current state of higherLevelFav is: ', higherLevelFav);
+        console.log('component rerendered');
+        
 
-    }, [userData]);
+    }, [userData, higherLevelFav, isFavorite]);
 
     const addFavorite = (event) => {
     
@@ -46,8 +51,8 @@ export const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevel
             if(response.ok) {
                 alert(`${song.title} has been added to your favorites list!`);
                 setIsFavorite(true);
-                setHigherLevelFav(`${songId}`);
-                updateHigherLevelFav(`${songId}`);
+                setHigherLevelFav(prevFav => [...prevFav, `${songId}`]);
+                // updateHigherLevelFav(`${songId}`);
             } else {
                 alert(`${song.title} could not be added to your favorites list :( `);
             }
@@ -69,9 +74,9 @@ export const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevel
             if(response.ok) {
                 alert(`${song.title} has been removed from your favorites list!`);
                 setIsFavorite(false);
-                const updatedFav = higherLevelFav.filter(song => song.id !== `${songId}`);
-                setHigherLevelFav(updatedFav);
-                console.log(higherLevelFav);
+                // const updatedFav = higherLevelFav.filter(song => song.id !== `${songId}`);
+                // console.log('updatedFav: ', updatedFav);
+                setHigherLevelFav(favorite => favorite.filter(song => song.id !== songId));
             } else {
                 alert(`${song.title} could not be removed from your favorites list :( `);
             }
@@ -79,8 +84,9 @@ export const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevel
     };
 
     const handleFavoriteToggle = () => {
+        console.log('handleFavoriteToggle called');
         if(isFavorite) {
-            // && higherLevelFav.some(song => song.id === `${songId}`)  this is how we'd handle it without isFavorite....? 
+            // && higherLevelFav.some(song => song.id === `${songId}`)
             removeFavorite();
             console.log(higherLevelFav);
         }
@@ -88,9 +94,6 @@ export const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevel
             addFavorite();
             console.log(higherLevelFav);
         }
-        // if(!isFavorite && higherLevelFav) {
-        //     addFavorite();
-        // }
     };
 
     return (

@@ -27204,11 +27204,16 @@ const MainView = ()=>{
     const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
     const [isLoading, setIsLoading] = (0, _react.useState)(true);
     const [userData, setUserData] = (0, _react.useState)(null);
+    const [higherLevelFav, setHigherLevelFav] = (0, _react.useState)([]);
+    // const [isFavorite, setIsFavorite] = useState(false);
     let Username;
     if (user && typeof user === "string") {
         const decodedToken = (0, _jwtDecode.jwtDecode)(user);
         Username = decodedToken.Username;
     }
+    // const updateHigherLevelFav = (updatedFav) => {
+    //     setHigherLevelFav(updatedFav);
+    // };
     const handleLogout = ()=>{
         setUser(null);
         localStorage.clear();
@@ -27227,6 +27232,7 @@ const MainView = ()=>{
         }).then((response)=>response.json()).then((userData)=>{
             if (userData) {
                 setUserData(userData);
+                setHigherLevelFav(userData.Favorites || []);
                 setIsLoading(false);
             } else {
                 console.error("Error: No user data received from the API");
@@ -27264,7 +27270,7 @@ const MainView = ()=>{
         children: "Loading..."
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 89,
+        lineNumber: 95,
         columnNumber: 16
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
@@ -27274,7 +27280,7 @@ const MainView = ()=>{
                 onLoggedOut: handleLogout
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 95,
+                lineNumber: 101,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -27288,24 +27294,24 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 107,
+                                    lineNumber: 113,
                                     columnNumber: 37
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     md: 5,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 110,
+                                        lineNumber: 116,
                                         columnNumber: 41
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 109,
+                                    lineNumber: 115,
                                     columnNumber: 37
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 102,
+                            lineNumber: 108,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27315,7 +27321,7 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 121,
+                                    lineNumber: 127,
                                     columnNumber: 37
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     lg: 5,
@@ -27325,18 +27331,18 @@ const MainView = ()=>{
                                         }
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 124,
+                                        lineNumber: 130,
                                         columnNumber: 41
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 123,
+                                    lineNumber: 129,
                                     columnNumber: 37
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 116,
+                            lineNumber: 122,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27347,23 +27353,25 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 135,
+                                    lineNumber: 141,
                                     columnNumber: 37
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
                                     user: user,
                                     userData: userData,
                                     Username: Username,
                                     songs: songs,
-                                    onLoggedOut: handleLogout
+                                    onLoggedOut: handleLogout,
+                                    higherLevelFav: higherLevelFav,
+                                    setHigherLevelFav: setHigherLevelFav
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 137,
+                                    lineNumber: 143,
                                     columnNumber: 37
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 130,
+                            lineNumber: 136,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27374,34 +27382,36 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 153,
+                                    lineNumber: 161,
                                     columnNumber: 37
                                 }, void 0) : songs.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: "The list is empty!"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 155,
+                                    lineNumber: 163,
                                     columnNumber: 37
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     md: 8,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _songView.SongView), {
                                         user: user,
                                         userData: userData,
-                                        songs: songs
+                                        songs: songs,
+                                        higherLevelFav: higherLevelFav,
+                                        setHigherLevelFav: setHigherLevelFav
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 158,
+                                        lineNumber: 166,
                                         columnNumber: 41
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 157,
+                                    lineNumber: 165,
                                     columnNumber: 37
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 148,
+                            lineNumber: 156,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27412,13 +27422,13 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 173,
+                                    lineNumber: 184,
                                     columnNumber: 37
                                 }, void 0) : songs.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: "The list is empty!"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 175,
+                                    lineNumber: 186,
                                     columnNumber: 37
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: songs.map((song)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
@@ -27431,40 +27441,40 @@ const MainView = ()=>{
                                                 song: song
                                             }, void 0, false, {
                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                lineNumber: 180,
+                                                lineNumber: 191,
                                                 columnNumber: 49
                                             }, void 0)
                                         }, song.id, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 179,
+                                            lineNumber: 190,
                                             columnNumber: 45
                                         }, void 0))
                                 }, void 0, false)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 168,
+                            lineNumber: 179,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 101,
+                    lineNumber: 107,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 100,
+                lineNumber: 106,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 93,
+        lineNumber: 99,
         columnNumber: 9
     }, undefined);
 };
-_s(MainView, "hI4FSy14v+JJHjZErFrBbRzMKZE=");
+_s(MainView, "PqSGeEjwB0Rjpxnc7RSd0orcVyg=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -41537,15 +41547,16 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
     (0, _react.useEffect)(()=>{
         if (!userData) return;
         const existingFavorite = userData.Favorites.includes(songId);
-        setIsFavorite(existingFavorite);
-        const updatedHigherLevelFav = existingFavorite ? [
-            ...higherLevelFav,
-            songId
-        ] : higherLevelFav.filter((id)=>id !== songId);
-        setHigherLevelFav(updatedHigherLevelFav);
+        if (existingFavorite) setIsFavorite(true);
+        // setIsFavorite(existingFavorite);
+        // const updatedHigherLevelFav = existingFavorite ? [...higherLevelFav, songId] : higherLevelFav.filter(id => id !== songId);
+        // setHigherLevelFav(updatedHigherLevelFav);
         console.log("the current state of higherLevelFav is: ", higherLevelFav);
+        console.log("component rerendered");
     }, [
-        userData
+        userData,
+        higherLevelFav,
+        isFavorite
     ]);
     const addFavorite = (event)=>{
         // event.preventDefault();
@@ -41560,8 +41571,11 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
             if (response.ok) {
                 alert(`${song.title} has been added to your favorites list!`);
                 setIsFavorite(true);
-                setHigherLevelFav(`${songId}`);
-                updateHigherLevelFav(`${songId}`);
+                setHigherLevelFav((prevFav)=>[
+                        ...prevFav,
+                        `${songId}`
+                    ]);
+            // updateHigherLevelFav(`${songId}`);
             } else alert(`${song.title} could not be added to your favorites list :( `);
         });
     };
@@ -41578,24 +41592,22 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
             if (response.ok) {
                 alert(`${song.title} has been removed from your favorites list!`);
                 setIsFavorite(false);
-                const updatedFav = higherLevelFav.filter((song)=>song.id !== `${songId}`);
-                setHigherLevelFav(updatedFav);
-                console.log(higherLevelFav);
+                // const updatedFav = higherLevelFav.filter(song => song.id !== `${songId}`);
+                // console.log('updatedFav: ', updatedFav);
+                setHigherLevelFav((favorite)=>favorite.filter((song)=>song.id !== songId));
             } else alert(`${song.title} could not be removed from your favorites list :( `);
         });
     };
     const handleFavoriteToggle = ()=>{
+        console.log("handleFavoriteToggle called");
         if (isFavorite) {
-            // && higherLevelFav.some(song => song.id === `${songId}`)  this is how we'd handle it without isFavorite....? 
+            // && higherLevelFav.some(song => song.id === `${songId}`)
             removeFavorite();
             console.log(higherLevelFav);
         } else {
             addFavorite();
             console.log(higherLevelFav);
         }
-    // if(!isFavorite && higherLevelFav) {
-    //     addFavorite();
-    // }
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
@@ -41605,7 +41617,7 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
                 alt: song.title
             }, void 0, false, {
                 fileName: "src/components/song-view/song-view.jsx",
-                lineNumber: 98,
+                lineNumber: 101,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -41614,7 +41626,7 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
                         children: song.title
                     }, void 0, false, {
                         fileName: "src/components/song-view/song-view.jsx",
-                        lineNumber: 100,
+                        lineNumber: 103,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -41623,13 +41635,13 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
                         children: isFavorite ? "Remove from favorites" : "Add to favorites"
                     }, void 0, false, {
                         fileName: "src/components/song-view/song-view.jsx",
-                        lineNumber: 101,
+                        lineNumber: 104,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/song-view/song-view.jsx",
-                lineNumber: 99,
+                lineNumber: 102,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accordionDefault.default), {
@@ -41650,20 +41662,20 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/song-view/song-view.jsx",
-                                lineNumber: 111,
+                                lineNumber: 114,
                                 columnNumber: 21
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accordionDefault.default).Body, {
                                 children: song.artist.Bio
                             }, void 0, false, {
                                 fileName: "src/components/song-view/song-view.jsx",
-                                lineNumber: 112,
+                                lineNumber: 115,
                                 columnNumber: 21
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/song-view/song-view.jsx",
-                        lineNumber: 110,
+                        lineNumber: 113,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accordionDefault.default).Item, {
@@ -41676,26 +41688,26 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/song-view/song-view.jsx",
-                                lineNumber: 117,
+                                lineNumber: 120,
                                 columnNumber: 21
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accordionDefault.default).Body, {
                                 children: song.genre.Description
                             }, void 0, false, {
                                 fileName: "src/components/song-view/song-view.jsx",
-                                lineNumber: 118,
+                                lineNumber: 121,
                                 columnNumber: 21
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/song-view/song-view.jsx",
-                        lineNumber: 116,
+                        lineNumber: 119,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/song-view/song-view.jsx",
-                lineNumber: 109,
+                lineNumber: 112,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
@@ -41708,12 +41720,12 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
                     children: " Back "
                 }, void 0, false, {
                     fileName: "src/components/song-view/song-view.jsx",
-                    lineNumber: 124,
+                    lineNumber: 127,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/song-view/song-view.jsx",
-                lineNumber: 123,
+                lineNumber: 126,
                 columnNumber: 13
             }, undefined)
         ]
@@ -42531,6 +42543,7 @@ const FavoriteSongs = ({ userData, songs, higherLevelFav, setHigherLevelFav })=>
     _s();
     const [favorites, setFavorites] = (0, _react.useState)([]);
     (0, _react.useEffect)(()=>{
+        console.log("the state of higherLevelFav in FavoriteSongs is: ", higherLevelFav);
         const hashFavorites = ()=>{
             if (!userData || !userData.Favorites || !songs) return;
             const favoritesData = higherLevelFav.map((songId)=>{
@@ -42556,17 +42569,17 @@ const FavoriteSongs = ({ userData, songs, higherLevelFav, setHigherLevelFav })=>
                         children: "Favorites:"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/favorite-songs.jsx",
-                        lineNumber: 33,
+                        lineNumber: 35,
                         columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/favorite-songs.jsx",
-                    lineNumber: 32,
+                    lineNumber: 34,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/profile-view/favorite-songs.jsx",
-                lineNumber: 31,
+                lineNumber: 33,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -42579,23 +42592,23 @@ const FavoriteSongs = ({ userData, songs, higherLevelFav, setHigherLevelFav })=>
                             song: song
                         }, void 0, false, {
                             fileName: "src/components/profile-view/favorite-songs.jsx",
-                            lineNumber: 39,
+                            lineNumber: 41,
                             columnNumber: 25
                         }, undefined)
                     }, "favorites.id", false, {
                         fileName: "src/components/profile-view/favorite-songs.jsx",
-                        lineNumber: 38,
+                        lineNumber: 40,
                         columnNumber: 21
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/profile-view/favorite-songs.jsx",
-                lineNumber: 36,
+                lineNumber: 38,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/favorite-songs.jsx",
-        lineNumber: 30,
+        lineNumber: 32,
         columnNumber: 9
     }, undefined);
 };

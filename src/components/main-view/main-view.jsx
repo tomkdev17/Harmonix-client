@@ -25,9 +25,9 @@ export const MainView = () => {
         const decodedToken = jwtDecode(user);
         Username = decodedToken.Username;
     };
-    const updateHigherLevelFav = (updatedFav) => {
-        setHigherLevelFav(updatedFav);
-    };
+    // const updateHigherLevelFav = (updatedFav) => {
+    //     setHigherLevelFav(updatedFav);
+    // };
     const handleLogout = () => {
         setUser(null);
         localStorage.clear();
@@ -169,7 +169,7 @@ export const MainView = () => {
                                             songs={songs}   
                                             higherLevelFav={higherLevelFav}
                                             setHigherLevelFav={setHigherLevelFav}
-                                            updateHigherLevelFav={updateHigherLevelFav}
+                                            // updateHigherLevelFav={updateHigherLevelFav}
                                         />
                                     </Col>
                                 )}
