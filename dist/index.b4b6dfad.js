@@ -27509,25 +27509,18 @@ const SongCard = ({ song })=>{
                     src: song.image
                 }, void 0, false, {
                     fileName: "src/components/song-card/song-card.jsx",
-                    lineNumber: 9,
+                    lineNumber: 10,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/song-card/song-card.jsx",
-                lineNumber: 8,
+                lineNumber: 9,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
                         children: song.title
-                    }, void 0, false, {
-                        fileName: "src/components/song-card/song-card.jsx",
-                        lineNumber: 12,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                        children: song.artist.Name
                     }, void 0, false, {
                         fileName: "src/components/song-card/song-card.jsx",
                         lineNumber: 13,
@@ -27540,24 +27533,24 @@ const SongCard = ({ song })=>{
                             children: "Info"
                         }, void 0, false, {
                             fileName: "src/components/song-card/song-card.jsx",
-                            lineNumber: 15,
+                            lineNumber: 16,
                             columnNumber: 21
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/song-card/song-card.jsx",
-                        lineNumber: 14,
+                        lineNumber: 15,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/song-card/song-card.jsx",
-                lineNumber: 11,
+                lineNumber: 12,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/song-card/song-card.jsx",
-        lineNumber: 7,
+        lineNumber: 8,
         columnNumber: 9
     }, undefined);
 };
