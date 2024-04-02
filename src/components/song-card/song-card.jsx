@@ -3,6 +3,7 @@ import {Button, Card} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const SongCard = ({song}) => {
+    
     return (
         <Card className="h-100 border border-4">
             <Link to={`/songs/${encodeURIComponent(song.id)}`} >
@@ -10,7 +11,7 @@ export const SongCard = ({song}) => {
             </Link>
             <Card.Body>
                 <Card.Title>{song.title}</Card.Title>
-                <Card.Text>{song.artist.Name}</Card.Text>
+                {/* <Card.Text>{song.artist.Name}</Card.Text> */}
                 <Link to={`/songs/${encodeURIComponent(song.id)}`} >
                     <Button variant="link">Info</Button>
                 </Link>

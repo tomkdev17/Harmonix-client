@@ -10,6 +10,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useParams } from "react-router"; 
 
 export const MainView = () => {
 
@@ -19,15 +20,13 @@ export const MainView = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState(null);
     const [higherLevelFav, setHigherLevelFav] = useState([]);
-    // const [isFavorite, setIsFavorite] = useState(false);
+    
     let Username;
     if(user && typeof user === 'string') {
         const decodedToken = jwtDecode(user);
         Username = decodedToken.Username;
     };
-    // const updateHigherLevelFav = (updatedFav) => {
-    //     setHigherLevelFav(updatedFav);
-    // };
+
     const handleLogout = () => {
         setUser(null);
         localStorage.clear();
@@ -49,9 +48,10 @@ export const MainView = () => {
         .then((userData) => {
 
             if(userData) {
-                setUserData(userData);
-                setHigherLevelFav(userData.Favorites || [] );        
+                setUserData(userData);  
+                setHigherLevelFav(userData.Favorites);     
                 setIsLoading(false);
+                console.log(userData);
             } else {
                 console.error("Error: No user data received from the API");
                 setIsLoading(false);
@@ -59,6 +59,8 @@ export const MainView = () => {
         })
         .catch((err) => {
             console.error("Error fetching user data: " + err);
+            setUser(null);
+            localStorage.clear();
         });
 
         fetch(songsUrl, {
@@ -90,11 +92,10 @@ export const MainView = () => {
     }, [user]);
 
 
-
     if (isLoading) {
         return <div>Loading...</div>;
     };
-
+    
     return(
         <BrowserRouter>
             
@@ -147,7 +148,6 @@ export const MainView = () => {
                                         songs={songs}
                                         onLoggedOut={handleLogout}
                                         higherLevelFav={higherLevelFav}
-                                        setHigherLevelFav={setHigherLevelFav}
                                     />
                                 )}
                             </>
@@ -162,14 +162,16 @@ export const MainView = () => {
                                 ) : songs.length === 0 ? (
                                     <Col>The list is empty!</Col>
                                 ) : (
+                                    
+                                    
                                     <Col md={8} > 
                                         <SongView 
                                             user={user} 
                                             userData={userData}
-                                            songs={songs}   
                                             higherLevelFav={higherLevelFav}
                                             setHigherLevelFav={setHigherLevelFav}
-                                            // updateHigherLevelFav={updateHigherLevelFav}
+                                            songs={songs}   
+                                            Username={Username}
                                         />
                                     </Col>
                                 )}
@@ -190,6 +192,7 @@ export const MainView = () => {
                                             <Col className="mb-4" key={song.id} xs={12} sm={6} md={4} lg={3} > 
                                                 <SongCard song={song} /> 
                                             </Col> 
+                                            
                                         ))}
                                     </>
                                 )}

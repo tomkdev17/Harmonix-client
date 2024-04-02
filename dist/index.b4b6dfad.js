@@ -27196,6 +27196,7 @@ var _colDefault = parcelHelpers.interopDefault(_col);
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _reactRouterDom = require("react-router-dom");
+var _reactRouter = require("react-router");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
@@ -27205,15 +27206,11 @@ const MainView = ()=>{
     const [isLoading, setIsLoading] = (0, _react.useState)(true);
     const [userData, setUserData] = (0, _react.useState)(null);
     const [higherLevelFav, setHigherLevelFav] = (0, _react.useState)([]);
-    // const [isFavorite, setIsFavorite] = useState(false);
     let Username;
     if (user && typeof user === "string") {
         const decodedToken = (0, _jwtDecode.jwtDecode)(user);
         Username = decodedToken.Username;
     }
-    // const updateHigherLevelFav = (updatedFav) => {
-    //     setHigherLevelFav(updatedFav);
-    // };
     const handleLogout = ()=>{
         setUser(null);
         localStorage.clear();
@@ -27232,14 +27229,17 @@ const MainView = ()=>{
         }).then((response)=>response.json()).then((userData)=>{
             if (userData) {
                 setUserData(userData);
-                setHigherLevelFav(userData.Favorites || []);
+                setHigherLevelFav(userData.Favorites);
                 setIsLoading(false);
+                console.log(userData);
             } else {
                 console.error("Error: No user data received from the API");
                 setIsLoading(false);
             }
         }).catch((err)=>{
             console.error("Error fetching user data: " + err);
+            setUser(null);
+            localStorage.clear();
         });
         fetch(songsUrl, {
             headers: {
@@ -27270,7 +27270,7 @@ const MainView = ()=>{
         children: "Loading..."
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 95,
+        lineNumber: 96,
         columnNumber: 16
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
@@ -27280,7 +27280,7 @@ const MainView = ()=>{
                 onLoggedOut: handleLogout
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 101,
+                lineNumber: 102,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -27294,24 +27294,24 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 113,
+                                    lineNumber: 114,
                                     columnNumber: 37
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     md: 5,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 116,
+                                        lineNumber: 117,
                                         columnNumber: 41
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 115,
+                                    lineNumber: 116,
                                     columnNumber: 37
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 108,
+                            lineNumber: 109,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27321,7 +27321,7 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 127,
+                                    lineNumber: 128,
                                     columnNumber: 37
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     lg: 5,
@@ -27331,18 +27331,18 @@ const MainView = ()=>{
                                         }
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 130,
+                                        lineNumber: 131,
                                         columnNumber: 41
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 129,
+                                    lineNumber: 130,
                                     columnNumber: 37
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 122,
+                            lineNumber: 123,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27353,7 +27353,7 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 141,
+                                    lineNumber: 142,
                                     columnNumber: 37
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
                                     user: user,
@@ -27361,17 +27361,16 @@ const MainView = ()=>{
                                     Username: Username,
                                     songs: songs,
                                     onLoggedOut: handleLogout,
-                                    higherLevelFav: higherLevelFav,
-                                    setHigherLevelFav: setHigherLevelFav
+                                    higherLevelFav: higherLevelFav
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 143,
+                                    lineNumber: 144,
                                     columnNumber: 37
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 136,
+                            lineNumber: 137,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27395,17 +27394,18 @@ const MainView = ()=>{
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _songView.SongView), {
                                         user: user,
                                         userData: userData,
-                                        songs: songs,
                                         higherLevelFav: higherLevelFav,
-                                        setHigherLevelFav: setHigherLevelFav
+                                        setHigherLevelFav: setHigherLevelFav,
+                                        songs: songs,
+                                        Username: Username
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 166,
+                                        lineNumber: 168,
                                         columnNumber: 41
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 165,
+                                    lineNumber: 167,
                                     columnNumber: 37
                                 }, void 0)
                             }, void 0, false)
@@ -27422,13 +27422,13 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 184,
+                                    lineNumber: 186,
                                     columnNumber: 37
                                 }, void 0) : songs.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: "The list is empty!"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 186,
+                                    lineNumber: 188,
                                     columnNumber: 37
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: songs.map((song)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
@@ -27441,36 +27441,36 @@ const MainView = ()=>{
                                                 song: song
                                             }, void 0, false, {
                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                lineNumber: 191,
+                                                lineNumber: 193,
                                                 columnNumber: 49
                                             }, void 0)
                                         }, song.id, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 190,
+                                            lineNumber: 192,
                                             columnNumber: 45
                                         }, void 0))
                                 }, void 0, false)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 179,
+                            lineNumber: 181,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 107,
+                    lineNumber: 108,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 106,
+                lineNumber: 107,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 99,
+        lineNumber: 100,
         columnNumber: 9
     }, undefined);
 };
@@ -27484,7 +27484,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../song-card/song-card":"bbgp2","../song-view/song-view":"lcacC","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../navigation-bar/navigation-bar":"bsPVM","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-bootstrap/Button":"aPzUt","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../profile-view/profile-view":"2vVqf","jwt-decode":"EeAxo"}],"bbgp2":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../song-card/song-card":"bbgp2","../song-view/song-view":"lcacC","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../navigation-bar/navigation-bar":"bsPVM","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-bootstrap/Button":"aPzUt","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../profile-view/profile-view":"2vVqf","jwt-decode":"EeAxo","react-router":"dbWyW"}],"bbgp2":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$adfa = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41526,7 +41526,6 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SongView", ()=>SongView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
 var _propTypes = require("prop-types");
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
@@ -41534,30 +41533,12 @@ var _accordion = require("react-bootstrap/Accordion");
 var _accordionDefault = parcelHelpers.interopDefault(_accordion);
 var _reactRouter = require("react-router");
 var _reactRouterDom = require("react-router-dom");
-var _jwtDecode = require("jwt-decode");
 var _s = $RefreshSig$();
-const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, updateHigherLevelFav })=>{
+const SongView = ({ user, userData, higherLevelFav, setHigherLevelFav, songs, Username })=>{
     _s();
     const { songId } = (0, _reactRouter.useParams)();
     const song = songs.find((s)=>s.id === songId);
-    const decodedToken = (0, _jwtDecode.jwtDecode)(user);
-    const Username = decodedToken.Username;
     const url = `https://harmonix-daebd0a88259.herokuapp.com/users/${Username}/songs/${songId}`;
-    const [isFavorite, setIsFavorite] = (0, _react.useState)(false);
-    (0, _react.useEffect)(()=>{
-        if (!userData) return;
-        const existingFavorite = userData.Favorites.includes(songId);
-        if (existingFavorite) setIsFavorite(true);
-        // setIsFavorite(existingFavorite);
-        // const updatedHigherLevelFav = existingFavorite ? [...higherLevelFav, songId] : higherLevelFav.filter(id => id !== songId);
-        // setHigherLevelFav(updatedHigherLevelFav);
-        console.log("the current state of higherLevelFav is: ", higherLevelFav);
-        console.log("component rerendered");
-    }, [
-        userData,
-        higherLevelFav,
-        isFavorite
-    ]);
     const addFavorite = (event)=>{
         // event.preventDefault();
         fetch(url, {
@@ -41569,18 +41550,16 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
         }).then((response)=>{
             console.log(response);
             if (response.ok) {
-                alert(`${song.title} has been added to your favorites list!`);
-                setIsFavorite(true);
+                // setIsFavorite(true);
                 setHigherLevelFav((prevFav)=>[
                         ...prevFav,
                         `${songId}`
                     ]);
-            // updateHigherLevelFav(`${songId}`);
+                alert(`${song.title} has been added to your favorites list!`);
             } else alert(`${song.title} could not be added to your favorites list :( `);
         });
     };
-    const removeFavorite = (event)=>{
-        // event.preventDefault();
+    const removeFavorite = ()=>{
         fetch(url, {
             method: "DELETE",
             headers: {
@@ -41590,58 +41569,57 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
         }).then((response)=>{
             console.log(response);
             if (response.ok) {
+                const updatedFavs = userData.Favorites.filter((song)=>song.id !== songId);
+                setHigherLevelFav(updatedFavs);
                 alert(`${song.title} has been removed from your favorites list!`);
-                setIsFavorite(false);
-                // const updatedFav = higherLevelFav.filter(song => song.id !== `${songId}`);
-                // console.log('updatedFav: ', updatedFav);
-                setHigherLevelFav((favorite)=>favorite.filter((song)=>song.id !== songId));
             } else alert(`${song.title} could not be removed from your favorites list :( `);
         });
     };
     const handleFavoriteToggle = ()=>{
-        console.log("handleFavoriteToggle called");
-        if (isFavorite) {
-            // && higherLevelFav.some(song => song.id === `${songId}`)
-            removeFavorite();
-            console.log(higherLevelFav);
-        } else {
-            addFavorite();
-            console.log(higherLevelFav);
-        }
+        if (higherLevelFav.includes(`${songId}`)) removeFavorite();
+        else addFavorite();
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                className: "w-100",
-                src: song.image,
-                alt: song.title
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "text-center",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                    className: "w-50 h-50 img-thumbnail",
+                    src: song.image,
+                    alt: song.title
+                }, void 0, false, {
+                    fileName: "src/components/song-view/song-view.jsx",
+                    lineNumber: 69,
+                    columnNumber: 17
+                }, undefined)
             }, void 0, false, {
                 fileName: "src/components/song-view/song-view.jsx",
-                lineNumber: 101,
+                lineNumber: 68,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "text-center",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
                         children: song.title
                     }, void 0, false, {
                         fileName: "src/components/song-view/song-view.jsx",
-                        lineNumber: 103,
+                        lineNumber: 72,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
-                        variant: isFavorite ? "outline-primary" : "primary",
+                        variant: higherLevelFav.includes(`${songId}`) ? "outline-primary" : "primary",
                         onClick: handleFavoriteToggle,
-                        children: isFavorite ? "Remove from favorites" : "Add to favorites"
+                        children: higherLevelFav.includes(`${songId}`) ? "Remove from favorites" : "Add to favorites"
                     }, void 0, false, {
                         fileName: "src/components/song-view/song-view.jsx",
-                        lineNumber: 104,
-                        columnNumber: 17
+                        lineNumber: 73,
+                        columnNumber: 21
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/song-view/song-view.jsx",
-                lineNumber: 102,
+                lineNumber: 71,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accordionDefault.default), {
@@ -41662,20 +41640,20 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/song-view/song-view.jsx",
-                                lineNumber: 114,
+                                lineNumber: 82,
                                 columnNumber: 21
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accordionDefault.default).Body, {
                                 children: song.artist.Bio
                             }, void 0, false, {
                                 fileName: "src/components/song-view/song-view.jsx",
-                                lineNumber: 115,
+                                lineNumber: 83,
                                 columnNumber: 21
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/song-view/song-view.jsx",
-                        lineNumber: 113,
+                        lineNumber: 81,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accordionDefault.default).Item, {
@@ -41688,26 +41666,26 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/song-view/song-view.jsx",
-                                lineNumber: 120,
+                                lineNumber: 88,
                                 columnNumber: 21
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accordionDefault.default).Body, {
                                 children: song.genre.Description
                             }, void 0, false, {
                                 fileName: "src/components/song-view/song-view.jsx",
-                                lineNumber: 121,
+                                lineNumber: 89,
                                 columnNumber: 21
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/song-view/song-view.jsx",
-                        lineNumber: 119,
+                        lineNumber: 87,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/song-view/song-view.jsx",
-                lineNumber: 112,
+                lineNumber: 80,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
@@ -41716,22 +41694,22 @@ const SongView = ({ user, userData, songs, higherLevelFav, setHigherLevelFav, up
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
                     className: "back-button mb-5",
                     size: "lg",
-                    fluid: true,
+                    fluid: "xs",
                     children: " Back "
                 }, void 0, false, {
                     fileName: "src/components/song-view/song-view.jsx",
-                    lineNumber: 127,
+                    lineNumber: 95,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/song-view/song-view.jsx",
-                lineNumber: 126,
+                lineNumber: 94,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true);
 };
-_s(SongView, "7TJwkGlgPZLybhnOcbCY8R2qcRw=", false, function() {
+_s(SongView, "WjygV5U5bKHHT9DUhh4IkPK9DH0=", false, function() {
     return [
         (0, _reactRouter.useParams)
     ];
@@ -41759,61 +41737,7 @@ $RefreshReg$(_c, "SongView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","react-bootstrap/Button":"aPzUt","react-bootstrap/Accordion":"1m6xp","react-router":"dbWyW","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","jwt-decode":"EeAxo","react":"21dqq"}],"EeAxo":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "InvalidTokenError", ()=>InvalidTokenError);
-parcelHelpers.export(exports, "jwtDecode", ()=>jwtDecode);
-class InvalidTokenError extends Error {
-}
-InvalidTokenError.prototype.name = "InvalidTokenError";
-function b64DecodeUnicode(str) {
-    return decodeURIComponent(atob(str).replace(/(.)/g, (m, p)=>{
-        let code = p.charCodeAt(0).toString(16).toUpperCase();
-        if (code.length < 2) code = "0" + code;
-        return "%" + code;
-    }));
-}
-function base64UrlDecode(str) {
-    let output = str.replace(/-/g, "+").replace(/_/g, "/");
-    switch(output.length % 4){
-        case 0:
-            break;
-        case 2:
-            output += "==";
-            break;
-        case 3:
-            output += "=";
-            break;
-        default:
-            throw new Error("base64 string is not of the correct length");
-    }
-    try {
-        return b64DecodeUnicode(output);
-    } catch (err) {
-        return atob(output);
-    }
-}
-function jwtDecode(token, options) {
-    if (typeof token !== "string") throw new InvalidTokenError("Invalid token specified: must be a string");
-    options || (options = {});
-    const pos = options.header === true ? 0 : 1;
-    const part = token.split(".")[pos];
-    if (typeof part !== "string") throw new InvalidTokenError(`Invalid token specified: missing part #${pos + 1}`);
-    let decoded;
-    try {
-        decoded = base64UrlDecode(part);
-    } catch (e) {
-        throw new InvalidTokenError(`Invalid token specified: invalid base64 for part #${pos + 1} (${e.message})`);
-    }
-    try {
-        return JSON.parse(decoded);
-    } catch (e) {
-        throw new InvalidTokenError(`Invalid token specified: invalid json for part #${pos + 1} (${e.message})`);
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9YtA0":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","react-bootstrap/Button":"aPzUt","react-bootstrap/Accordion":"1m6xp","react-router":"dbWyW","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9YtA0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$9fee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -42286,32 +42210,8 @@ var _reactBootstrap = require("react-bootstrap");
 var _favoriteSongs = require("./favorite-songs");
 var _updateUser = require("./update-user");
 var _deleteAccount = require("./delete-account");
-var _s = $RefreshSig$();
-const ProfileView = ({ user, userData, Username, songs, onLoggedOut, higherLevelFav, setHigherLevelFav })=>{
-    _s();
+const ProfileView = ({ user, userData, Username, songs, onLoggedOut, higherLevelFav })=>{
     const url = `https://harmonix-daebd0a88259.herokuapp.com/users/${Username}`;
-    (0, _react.useEffect)(()=>{
-        if (userData && userData.Favorites) userData.Favorites.map((songId)=>{
-            return songs.find((s)=>s.id === songId);
-        });
-    });
-    const handleDeregister = ()=>{
-        fetch(url, {
-            method: "DELETE",
-            headers: {
-                Authorization: `Bearer ${user}`
-            }
-        }).then((response)=>{
-            console.log(response);
-            if (response.ok) {
-                alert("Account has been successfully deregistered");
-                onLoggedOut();
-                window.location.reload();
-            } else alert("Deregistration has failed");
-        }).catch((err)=>{
-            console.error("Error deregistering account" + err);
-        });
-    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -42327,22 +42227,22 @@ const ProfileView = ({ user, userData, Username, songs, onLoggedOut, higherLevel
                                     userData: userData
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 46,
+                                    lineNumber: 18,
                                     columnNumber: 29
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 45,
+                                lineNumber: 17,
                                 columnNumber: 25
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 44,
+                            lineNumber: 16,
                             columnNumber: 21
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 43,
+                        lineNumber: 15,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42356,51 +42256,49 @@ const ProfileView = ({ user, userData, Username, songs, onLoggedOut, higherLevel
                                     user: user
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 53,
+                                    lineNumber: 25,
                                     columnNumber: 29
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 52,
+                                lineNumber: 24,
                                 columnNumber: 25
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 51,
+                            lineNumber: 23,
                             columnNumber: 21
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 50,
+                        lineNumber: 22,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 42,
+                lineNumber: 14,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                     className: "mb-5",
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteSongs.FavoriteSongs), {
-                        userData: userData,
                         songs: songs,
-                        higherLevelFav: higherLevelFav,
-                        setHigherLevelFav: setHigherLevelFav
+                        higherLevelFav: higherLevelFav
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 60,
+                        lineNumber: 32,
                         columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 59,
+                    lineNumber: 31,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 58,
+                lineNumber: 30,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -42412,40 +42310,41 @@ const ProfileView = ({ user, userData, Username, songs, onLoggedOut, higherLevel
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _deleteAccount.DeleteAccount), {
-                                handleDeregister: handleDeregister
+                                url: url,
+                                onLoggedOut: onLoggedOut,
+                                user: user
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 72,
+                                lineNumber: 42,
                                 columnNumber: 29
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 71,
+                            lineNumber: 41,
                             columnNumber: 25
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 70,
+                        lineNumber: 40,
                         columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 69,
+                    lineNumber: 39,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 68,
+                lineNumber: 38,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 41,
+        lineNumber: 13,
         columnNumber: 9
     }, undefined);
 };
-_s(ProfileView, "OD7bBpZva5O2jO+Puf00hKivP7c=");
 _c = ProfileView;
 var _c;
 $RefreshReg$(_c, "ProfileView");
@@ -42538,28 +42437,11 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _songCard = require("../song-card/song-card");
 var _reactBootstrap = require("react-bootstrap");
-var _s = $RefreshSig$();
-const FavoriteSongs = ({ userData, songs, higherLevelFav, setHigherLevelFav })=>{
-    _s();
-    const [favorites, setFavorites] = (0, _react.useState)([]);
-    (0, _react.useEffect)(()=>{
-        console.log("the state of higherLevelFav in FavoriteSongs is: ", higherLevelFav);
-        const hashFavorites = ()=>{
-            if (!userData || !userData.Favorites || !songs) return;
-            const favoritesData = higherLevelFav.map((songId)=>{
-                return songs.find((s)=>s.id === songId);
-            });
-            const filteredFavs = favoritesData.filter((song)=>!!song);
-            setFavorites(filteredFavs);
-            console.log("Fetched songs data: ", favoritesData);
-            console.log("Favorites: ", favorites);
-            console.log("New Favorites state : ", higherLevelFav);
-        };
-        hashFavorites();
-    }, [
-        userData,
-        songs
-    ]);
+const FavoriteSongs = ({ songs, higherLevelFav })=>{
+    const favoritesData = higherLevelFav.map((songId)=>{
+        return songs.find((s)=>s.id === songId);
+    });
+    const filteredFavs = favoritesData.filter((song)=>!!song);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -42569,21 +42451,21 @@ const FavoriteSongs = ({ userData, songs, higherLevelFav, setHigherLevelFav })=>
                         children: "Favorites:"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/favorite-songs.jsx",
-                        lineNumber: 35,
+                        lineNumber: 16,
                         columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/favorite-songs.jsx",
-                    lineNumber: 34,
+                    lineNumber: 15,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/profile-view/favorite-songs.jsx",
-                lineNumber: 33,
+                lineNumber: 14,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                children: favorites.map((song)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                children: filteredFavs.map((song, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                         xs: 12,
                         sm: 6,
                         md: 4,
@@ -42592,27 +42474,26 @@ const FavoriteSongs = ({ userData, songs, higherLevelFav, setHigherLevelFav })=>
                             song: song
                         }, void 0, false, {
                             fileName: "src/components/profile-view/favorite-songs.jsx",
-                            lineNumber: 41,
+                            lineNumber: 22,
                             columnNumber: 25
                         }, undefined)
-                    }, "favorites.id", false, {
+                    }, index, false, {
                         fileName: "src/components/profile-view/favorite-songs.jsx",
-                        lineNumber: 40,
+                        lineNumber: 21,
                         columnNumber: 21
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/profile-view/favorite-songs.jsx",
-                lineNumber: 38,
+                lineNumber: 19,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/favorite-songs.jsx",
-        lineNumber: 32,
+        lineNumber: 13,
         columnNumber: 9
     }, undefined);
 };
-_s(FavoriteSongs, "gYNGUuNbE7AW8shO5JZPpsJJ/gw=");
 _c = FavoriteSongs;
 var _c;
 $RefreshReg$(_c, "FavoriteSongs");
@@ -42835,21 +42716,38 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
-const DeleteAccount = ({ handleDeregister })=>{
+const DeleteAccount = ({ url, onLoggedOut, user })=>{
+    const handleDeregister = ()=>{
+        fetch(url, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${user}`
+            }
+        }).then((response)=>{
+            console.log(response);
+            if (response.ok) {
+                alert("Account has been successfully deregistered");
+                onLoggedOut();
+                window.location.reload();
+            } else alert("Deregistration has failed");
+        }).catch((err)=>{
+            console.error("Error deregistering account" + err);
+        });
+    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
                 children: "Delete My Account"
             }, void 0, false, {
                 fileName: "src/components/profile-view/delete-account.jsx",
-                lineNumber: 7,
+                lineNumber: 28,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                 children: "Warning: This button cannot be unpressed, your account and all of its information will be removed from the Harmonix database"
             }, void 0, false, {
                 fileName: "src/components/profile-view/delete-account.jsx",
-                lineNumber: 8,
+                lineNumber: 29,
                 columnNumber: 17
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -42858,7 +42756,7 @@ const DeleteAccount = ({ handleDeregister })=>{
                 children: "Delete"
             }, void 0, false, {
                 fileName: "src/components/profile-view/delete-account.jsx",
-                lineNumber: 9,
+                lineNumber: 30,
                 columnNumber: 17
             }, undefined)
         ]
@@ -42873,6 +42771,60 @@ $RefreshReg$(_c, "DeleteAccount");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap/Button":"aPzUt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"lJZlQ":[function() {},{}]},["5qIsR","1xC6H","d8Dch"], "d8Dch", "parcelRequire2f7c")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap/Button":"aPzUt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"EeAxo":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "InvalidTokenError", ()=>InvalidTokenError);
+parcelHelpers.export(exports, "jwtDecode", ()=>jwtDecode);
+class InvalidTokenError extends Error {
+}
+InvalidTokenError.prototype.name = "InvalidTokenError";
+function b64DecodeUnicode(str) {
+    return decodeURIComponent(atob(str).replace(/(.)/g, (m, p)=>{
+        let code = p.charCodeAt(0).toString(16).toUpperCase();
+        if (code.length < 2) code = "0" + code;
+        return "%" + code;
+    }));
+}
+function base64UrlDecode(str) {
+    let output = str.replace(/-/g, "+").replace(/_/g, "/");
+    switch(output.length % 4){
+        case 0:
+            break;
+        case 2:
+            output += "==";
+            break;
+        case 3:
+            output += "=";
+            break;
+        default:
+            throw new Error("base64 string is not of the correct length");
+    }
+    try {
+        return b64DecodeUnicode(output);
+    } catch (err) {
+        return atob(output);
+    }
+}
+function jwtDecode(token, options) {
+    if (typeof token !== "string") throw new InvalidTokenError("Invalid token specified: must be a string");
+    options || (options = {});
+    const pos = options.header === true ? 0 : 1;
+    const part = token.split(".")[pos];
+    if (typeof part !== "string") throw new InvalidTokenError(`Invalid token specified: missing part #${pos + 1}`);
+    let decoded;
+    try {
+        decoded = base64UrlDecode(part);
+    } catch (e) {
+        throw new InvalidTokenError(`Invalid token specified: invalid base64 for part #${pos + 1} (${e.message})`);
+    }
+    try {
+        return JSON.parse(decoded);
+    } catch (e) {
+        throw new InvalidTokenError(`Invalid token specified: invalid json for part #${pos + 1} (${e.message})`);
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lJZlQ":[function() {},{}]},["5qIsR","1xC6H","d8Dch"], "d8Dch", "parcelRequire2f7c")
 
 //# sourceMappingURL=index.b4b6dfad.js.map
