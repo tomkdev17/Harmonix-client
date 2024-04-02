@@ -1,16 +1,20 @@
 import { PropTypes } from "prop-types";
 import {Button, Card} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export const SongCard = ({songData, onSongClick}) => {
+export const SongCard = ({song}) => {
+    
     return (
         <Card className="h-100 border border-4">
-            <Card.Img variant="top" src={songData.image} />
+            <Link to={`/songs/${encodeURIComponent(song.id)}`} >
+                <Card.Img variant="top" src={song.image} />
+            </Link>
             <Card.Body>
-                <Card.Title>{songData.title}</Card.Title>
-                <Card.Text>{songData.artist.Name}</Card.Text>
-                <Button onClick ={() => onSongClick(songData)}>
-                    Browse
-                </Button>
+                <Card.Title>{song.title}</Card.Title>
+                {/* <Card.Text>{song.artist.Name}</Card.Text> */}
+                <Link to={`/songs/${encodeURIComponent(song.id)}`} >
+                    <Button variant="link">Info</Button>
+                </Link>
             </Card.Body>
         </Card>
     );
