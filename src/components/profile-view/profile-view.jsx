@@ -13,14 +13,14 @@ export const ProfileView = ({user, userData, Username, songs, onLoggedOut, highe
         <Container>
             <Row>
                 <Col xs={12} sm={4}>
-                    <Card className='bg-primary'>
+                    <Card className='bg-secondary'>
                         <Card.Body>
                             <UserInfo Username={Username} userData={userData} />
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col xs={12} sm={8}>
-                    <Card className='bg-primary'>
+                    <Card className='bg-secondary'>
                         <Card.Body>
                             <UpdateUser url={url} user={user}/>
                         </Card.Body>
@@ -28,7 +28,7 @@ export const ProfileView = ({user, userData, Username, songs, onLoggedOut, highe
                 </Col>
             </Row>
             <Row>
-                <Col className='mb-5'>
+                <Col className='mt-5 mb-5'>
                     <FavoriteSongs
                          songs={songs} 
                          higherLevelFav={higherLevelFav}
@@ -37,7 +37,7 @@ export const ProfileView = ({user, userData, Username, songs, onLoggedOut, highe
             </Row>
             <Row>
                 <Col xs={12} sm={8} md={6} className='mx-auto text-center mb-5'>
-                    <Card>
+                    <Card className="bg-secondary">
                         <Card.Body>
                             <DeleteAccount 
                                 url={url} 

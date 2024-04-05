@@ -42,7 +42,7 @@ export const UpdateUser = ({url, user}) => {
     return(
         <>
             <div>
-                    <h3>Update User Info:</h3>
+                    <h3>Update my Info:</h3>
                     <Form onSubmit={handleUpdate} >
                         <Form.Group controlId="formUsername">
                             <Form.Label>Username: </Form.Label>
@@ -84,7 +84,7 @@ export const UpdateUser = ({url, user}) => {
                             /> 
                         </Form.Group>
 
-                        <Button variant="primary" className="btn-sm" type="submit">
+                        <Button variant="primary" className="btn mt-3" type="submit">
                             Update my info
                         </Button>
                     </Form> 

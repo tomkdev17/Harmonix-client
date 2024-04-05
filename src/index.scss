@@ -1,15 +1,12 @@
-$primary: #6b9080;
-$secondary: #1a3127;
-$tertiary: #9adbbf;
-$body-bg: #d0ffd4;
+$primary: #3D453B;
+$secondary: #d9d4d4;
+$tertiary: #E5E5E5;
+$body-bg: #99A696;
 
     @import '~bootstrap/scss/bootstrap.scss';
 
 .nav {
     margin-bottom : 30px;
-
 }
 
-.FavoriteSongs {
-    margin-bottom : 20px
-}
+

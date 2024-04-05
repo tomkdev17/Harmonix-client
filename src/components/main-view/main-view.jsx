@@ -104,7 +104,7 @@ export const MainView = () => {
                 onLoggedOut={handleLogout}
             />
 
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-sm-center">
                 <Routes>
                     <Route
                         path="/signup"
@@ -113,7 +113,7 @@ export const MainView = () => {
                                 {user ? (
                                     <Navigate to="/" />
                                 ) : (
-                                    <Col md={5}>
+                                    <Col sm={5}>
                                         <SignupView />
                                     </Col>
                                 )}
@@ -127,7 +127,7 @@ export const MainView = () => {
                                 {user ? (
                                     <Navigate to="/" />
                                 ) : (
-                                    <Col lg={5}>
+                                    <Col sm={5}>
                                         <LoginView onLoggedIn={(user) => {setUser(user); }} />
                                     </Col>
                                 )}

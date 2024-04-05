@@ -39,7 +39,7 @@ export const SignupView = () => {
 
     return(
         <>
-        <h1>Or Sign Up: </h1>
+        <h1>Sign Up: </h1>
         <Form onSubmit={handleSubmit} >
 
             <Form.Group controlId="formUsername">
@@ -81,10 +81,11 @@ export const SignupView = () => {
                     required
                 /> 
             </Form.Group>
-
-            <Button variant="primary" className="btn-sm" type="submit">
-                Signup
-            </Button>
+            <div className='text-center mt-5'>
+                <Button variant="primary" className="btn" type="submit">
+                    Signup
+                </Button>
+            </div>
         </Form> 
         </>
          

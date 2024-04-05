@@ -64,8 +64,8 @@ export const SongView = ({ user, userData, higherLevelFav, setHigherLevelFav, so
     };
 
     return (
-        <>
-            <div className="text-center">
+        <div>
+            <div className="text-center ">
                 <img className="w-50 h-50 img-thumbnail" src={song.image} alt={song.title}/>
             </div>
             <div className="text-center">
@@ -77,7 +77,7 @@ export const SongView = ({ user, userData, higherLevelFav, setHigherLevelFav, so
                         {higherLevelFav.includes(`${songId}`) ? 'Remove from favorites' : 'Add to favorites'}
                     </Button>
             </div>
-            <Accordion defaultActiveKey={['0']} alwaysOpen flush className='mt-3 mb-3'>
+            <Accordion alwaysOpen className='mt-3 mb-5'>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>Artist : {song.artist.Name}</Accordion.Header>
                     <Accordion.Body>
@@ -91,10 +91,13 @@ export const SongView = ({ user, userData, higherLevelFav, setHigherLevelFav, so
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            <Link to={'/'} className='d-grid gap-2'> 
-                <Button className="back-button mb-5" size='lg' fluid='xs'> Back </Button>
-            </Link>
-        </>
+            <div className="text-center">
+                <Link to={'/'}> 
+                    <Button className="back-button mb-5" fluid='xs'> Back </Button>
+                </Link>
+            </div>
+            
+        </div>
     )
 }
 

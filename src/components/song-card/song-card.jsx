@@ -10,10 +10,10 @@ export const SongCard = ({song}) => {
                 <Card.Img variant="top" src={song.image} />
             </Link>
             <Card.Body>
-                <Card.Title>{song.title}</Card.Title>
-                {/* <Card.Text>{song.artist.Name}</Card.Text> */}
+                <Card.Title className="text-sm-lg">{song.title}</Card.Title>
+                <Card.Text>{song.artist.Name}</Card.Text>
                 <Link to={`/songs/${encodeURIComponent(song.id)}`} >
-                    <Button variant="link">Info</Button>
+                    <Button className="btn btn-primary" variant="link">Info</Button>
                 </Link>
             </Card.Body>
         </Card>
