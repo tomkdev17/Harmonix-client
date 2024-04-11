@@ -1,10 +1,5 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {useState} from 'react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import {SongCard} from '../song-card/song-card';
-
 
 export const NavigationBar = ({user, onLoggedOut, setQuery}) => {
     return (
