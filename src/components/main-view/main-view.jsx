@@ -20,7 +20,19 @@ export const MainView = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState(null);
     const [higherLevelFav, setHigherLevelFav] = useState([]);
-    
+    const [query, setQuery] = useState('');
+
+    const getFilteredTracks = (query, songs) => {
+        if(!query) {
+            return;
+        }
+        if(typeof query === 'string') {
+            return songs.filter(song => song.title.toLowerCase().includes(query.toLowerCase()));
+            console.log('getFilteredTracks is running and query is : ', query);
+        }
+    }
+    const filteredTracks = getFilteredTracks(query, songs);
+
     let Username;
     if(user && typeof user === 'string') {
         const decodedToken = jwtDecode(user);
@@ -102,6 +114,7 @@ export const MainView = () => {
             <NavigationBar 
                 user={user}
                 onLoggedOut={handleLogout}
+                setQuery={setQuery}
             />
 
             <Row className="justify-content-sm-center">
@@ -186,6 +199,14 @@ export const MainView = () => {
                                     <Navigate to="/login" replace />
                                 ) : songs.length === 0 ? (
                                     <Col>The list is empty!</Col>
+                                ) : filteredTracks && filteredTracks.length > 0 ? (
+                                    <>
+                                        {filteredTracks.map((song, index) => (
+                                            <Col key={index} xs={12} sm={4}>
+                                                <SongCard song={song} />
+                                            </Col>
+                                        ))}
+                                    </>
                                 ) : (
                                     <> 
                                         {songs.map((song) => (
